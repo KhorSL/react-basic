@@ -71,7 +71,7 @@ const AddUser = (props) => {
   }
 
   return (
-    <div>
+    <>
       {isShowError && (
         <ErrorModal
           title={error.title}
@@ -99,7 +99,7 @@ const AddUser = (props) => {
           <Button type="submit">Add user</Button>
         </form>
       </Card>
-    </div>
+    </>
   )
 }
 

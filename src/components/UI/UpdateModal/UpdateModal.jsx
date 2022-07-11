@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import ReactDOM from "react-dom"
 import Button from "../Button/Button"
 import Card from "../Card/Card"
+import Backdrop from "../Backdrop/Backdrop"
 import styles from "./UpdateModal.module.css"
 
 const UpdateModal = (props) => {
@@ -59,41 +61,47 @@ const UpdateModal = (props) => {
   }
 
   return (
-    <div id="UpdateModalContainer">
-      <div className={styles.backdrop} onClick={props.closeUpdateModal}></div>
-      <Card className={styles.modal}>
-        <header className={styles.header}>
-          <h2>{props.title}</h2>
-        </header>
-        <div className={styles.content}>
-          <form className={styles.input} onSubmit={updateUserHandler}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              onChange={usernameChangeHandler}
-              value={inputUsername}
-            />
-            <label htmlFor="age">Age</label>
-            <input
-              type="number"
-              id="age"
-              onChange={ageChangeHandler}
-              value={inputAge}
-            />
-            <button style={{ display: "none" }} type="submit" />
-          </form>
-          {isShowError && (
-            <p className={styles.errorMessage}>{error.message}</p>
-          )}
-        </div>
-        <footer className={styles.actions}>
-          <Button type="button" onClick={updateUserHandler}>
-            {props.buttonText || "Update"}
-          </Button>
-        </footer>
-      </Card>
-    </div>
+    <>
+      {ReactDOM.createPortal(
+        <Backdrop closeModal={props.closeUpdateModal} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <Card className={styles.modal}>
+          <header className={styles.header}>
+            <h2>{props.title}</h2>
+          </header>
+          <div className={styles.content}>
+            <form className={styles.input} onSubmit={updateUserHandler}>
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                onChange={usernameChangeHandler}
+                value={inputUsername}
+              />
+              <label htmlFor="age">Age</label>
+              <input
+                type="number"
+                id="age"
+                onChange={ageChangeHandler}
+                value={inputAge}
+              />
+              <button style={{ display: "none" }} type="submit" />
+            </form>
+            {isShowError && (
+              <p className={styles.errorMessage}>{error.message}</p>
+            )}
+          </div>
+          <footer className={styles.actions}>
+            <Button type="button" onClick={updateUserHandler}>
+              {props.buttonText || "Update"}
+            </Button>
+          </footer>
+        </Card>,
+        document.getElementById("overlay-root")
+      )}
+    </>
   )
 }
 
