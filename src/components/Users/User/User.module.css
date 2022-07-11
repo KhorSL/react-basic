@@ -1,0 +1,17 @@
+button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.userDetail {
+  cursor: pointer;
+}
+
+.userDetail:hover {
+  color: rgb(0, 157, 255);
+  font-weight: bolder;
+}

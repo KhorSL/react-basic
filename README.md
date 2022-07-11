@@ -1,0 +1,5 @@
+# react-basic
+
+```
+npm i
+```
